@@ -1,0 +1,4 @@
+#!/bin/bash
+marble_mouse='Logitech USB Trackball'
+xinput set-int-prop "${marble_mouse}" "Evdev Wheel Emulation Button" 8 8
+xinput set-int-prop "${marble_mouse}" "Evdev Wheel Emulation" 8 1

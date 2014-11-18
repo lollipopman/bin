@@ -1,0 +1,8 @@
+#!/bin/bash
+inetdev=wlan0
+pxedev=dummy0
+sudo iptables --table nat --append POSTROUTING --out-interface ${inetdev} -j MASQUERADE
+sudo iptables --append FORWARD --in-interface ${pxedev} -j ACCEPT
+sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
+sudo ip addr add 10.11.11.1/24 dev ${pxedev}
+sudo ip link set up dev ${pxedev}

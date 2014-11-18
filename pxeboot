@@ -1,0 +1,16 @@
+#!/bin/bash
+#kvm -localtime -vnc 0:1 -usbdevice tablet -std-vga -m 1024 -hda ~/vm/win2k.img
+#kvm-bridge -localtime -vnc 0:1 -usbdevice tablet -std-vga -m 1024 -hda ~/vm/win2k.img
+model=rtl8139
+iface=$(sudo tunctl -b -u $USER)
+mac="DE:AD:BE:EF:ac:4d"
+kvm -net nic,vlan=0,macaddr=${mac} -net tap,vlan=0,ifname=${iface} \
+  -localtime -vga std -m 256 -boot n
+#echo Sleeping while windows is booting
+#for segment in $(seq 1 6);do
+#  echo -n .
+#  sleep 10s
+#done
+#echo
+#echo Opening up vnc viewer
+#xtightvncviewer -compresslevel 5 -quality 9 -x11cursor tech-pc07

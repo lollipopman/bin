@@ -1,0 +1,3 @@
+#!/bin/bash
+cp "/home/jhathaway/Dropbox/devs shared/devs.kdb" "/home/jhathaway/btdocs/kdb/devs.kdb"
+exec keepassx "/home/jhathaway/btdocs/kdb/devs.kdb"

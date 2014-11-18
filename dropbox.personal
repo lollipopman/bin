@@ -1,0 +1,4 @@
+#!/bin/bash
+export HOME="${HOME}/dropboxes/personal"
+mkdir -p $HOME
+dropbox start -i

@@ -1,0 +1,3 @@
+sudo find .  -xdev -maxdepth 1 \( ! -regex '\./home' \) \( ! -regex '\./proc' \)  \( ! -regex '\.' \) -type d -print0 \
+  | du -sm --files0-from=- \
+  | sort -n

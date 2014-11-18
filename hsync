@@ -1,0 +1,5 @@
+host=${1}
+scp ~/.bashrc ${host}:~/
+scp ~/.bash_profile ${host}:~/
+scp -r ~/.vim ${host}:~/
+scp -r ~/.vimrc ${host}:~/

@@ -1,0 +1,2 @@
+#!/bin/bash
+exec keepassx "/home/jhathaway/Dropbox/devs shared/devs-prod.kdb"

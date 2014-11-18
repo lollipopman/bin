@@ -1,0 +1,7 @@
+#!/bin/bash
+screen_size=$(xdpyinfo | grep dimensions | cut -d ' ' -f 7)
+width=$(echo $screen_size| sed 's/x.*$//')
+height=$(echo $screen_size| sed 's/^.*x//')
+#xfreerdp -x 0x80 --plugin cliprdr --plugin rdpsnd --plugin rdpdr --data disk:jhathaway:$HOME -z -g ${width}x${height} $1
+exec rdesktop -x 0x80 -r disk:home=$HOME -r sound -z -g ${width}x${height} -K $@
+#exec xfreerdp -x 0x80 -z -g ${width}x${height} -K --plugin rdpdr.so --data disk.so:Z:$HOME $@

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+if ARGV[0]
+  oo_doc=ARGV[0]
+  if /^\// =~ oo_doc
+    exec "soffice \"#{oo_doc}\""
+  else
+    exec "soffice \"#{Dir.pwd}/#{oo_doc}\""
+  end
+else
+  exec "soffice"
+end

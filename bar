@@ -1,0 +1,3 @@
+#!/bin/bash
+#exec xlock -mode demon
+exec i3lock -c F68026

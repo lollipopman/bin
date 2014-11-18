@@ -1,0 +1,11 @@
+#!/bin/bash
+file_name=$1
+if vxml $file_name >/dev/null; then
+  cp $file_name /tmp/
+  xmllint -format /tmp/$file_name > $file_name
+  echo "Formatted"
+else
+  echo "Input file is not valid"
+  echo "No changes made"
+  exit 0
+fi

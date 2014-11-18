@@ -1,0 +1,3 @@
+#!/bin/bash
+echo '## output: ~/tmp/out.mpg'
+ffmpeg -y -b 4000k -f video4linux2 -s 960x720 -i /dev/video0 ~/tmp/out.mpg

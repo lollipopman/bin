@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /opt/ireasoning/mibbrowser
+cd /opt/ireasoning/mibbrowser
+exec ./browser.sh

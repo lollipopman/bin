@@ -1,0 +1,2 @@
+#!/bin/bash
+exec $HOME/urt/opt/firefox/firefox -P default $@

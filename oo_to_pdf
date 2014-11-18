@@ -1,0 +1,6 @@
+#!/bin/bash
+# anytopdf only works if oo is not already running
+for file in *.od*; do
+  basename=$(echo $file|sed 's/\..*//')
+  anytopdf ${file} ${basename}.pdf
+done

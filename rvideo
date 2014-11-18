@@ -1,0 +1,31 @@
+#!/bin/bash
+
+usage="Usage: $0 [-v null]"
+
+# remove playlist
+trap "rm -f /tmp/$$" SIGINT
+
+while getopts "v:" options; do
+  case $options in
+   v )  video_out=$OPTARG;;
+   h )  echo $usage
+         exit 1;;
+   \? ) echo $usage
+         exit 1;;
+   * )  echo $usage
+         exit 1;;
+  esac
+done
+
+if [ "${video_out}" = "null" ]; then
+  video_out='-vo null'
+elif [ "${video_out}" = "xv" ]; then
+  video_out='-vo xv'
+else
+  video_out='-vo null'
+fi
+
+find ~/videos -regex .*.flv -o -regex .*.mov -o -regex .*.mpg -o -regex .*.avi|rand >/tmp/$$
+
+mplayer ${video_out} -playlist /tmp/$$
+rm -f /tmp/$$

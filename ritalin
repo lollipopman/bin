@@ -1,0 +1,6 @@
+sudo trickle -d 80 apt-get update
+sudo trickle -d 80 apt-get --assume-yes dist-upgrade
+
+echo
+echo "  Keeping the brain buzz steady with ritalin..."
+echo

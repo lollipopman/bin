@@ -1,0 +1,29 @@
+#!/bin/bash
+usage="Usage: $0 -f file [-m commit message]"
+
+while getopts "f:m:" options; do
+  case $options in
+    f ) file=$OPTARG;;
+    m ) message=$OPTARG;;
+    \? ) echo $usage
+         exit 1;;
+    * ) echo $usage
+          exit 1;;
+  esac
+done
+
+if [ $# -eq 0 ]; then
+  echo $usage
+  exit 1
+fi
+
+if [ -z "$file" ]; then
+  echo $usage
+  exit 1
+fi
+
+if [ -z "$message" ]; then
+  message="mod"
+fi
+
+git add ${file};git commit -m "$message";git push

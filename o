@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+if ARGV[0]
+  doc=ARGV[0]
+  if /^\// =~ doc
+    exec "xdg-open \"#{doc}\""
+  else
+    exec "xdg-open \"#{Dir.pwd}/#{doc}\""
+  end
+else
+  exec "xdg-open"
+end

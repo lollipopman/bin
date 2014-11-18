@@ -1,0 +1,5 @@
+#!/bin/bash
+
+   echo -e 'Process Finished!' \
+    | osd_cat -f "-bitstream-*-*-r-*-*-*-1000-*-*-*-*-*-*" \
+      --pos=middle --align=CENTER --offset=-250 --delay=0 --color=cyan --shadow=4

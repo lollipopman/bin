@@ -1,0 +1,5 @@
+#!/bin/bash
+# generate a random mac address for the qemu nic
+# shell script borrowed from user pheldens @ qemu forum
+printf 'QEMU: DE:AD:BE:EF:%02X:%02X\n' $((RANDOM%256)) $((RANDOM%256))
+printf 'XEN:  00:16:3E:38:%02X:%02X\n' $((RANDOM%256)) $((RANDOM%256))

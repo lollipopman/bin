@@ -1,0 +1,5 @@
+mkdir -p bin
+mkdir -p spec/codebreaker
+mkdir -p features/support
+mkdir -p features/step_definitions
+mkdir -p lib/codebreaker

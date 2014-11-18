@@ -1,0 +1,4 @@
+#!/bin/bash
+# remind escapes all shell chracters in message
+pkill -x remind
+remind -z1 -k'gxmessage -font "dejavu 30" -fg red -title "Reminder" %s &' ~/.reminders 2> ~/tmp/gxmessage_errors.log

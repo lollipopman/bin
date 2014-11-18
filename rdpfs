@@ -1,0 +1,6 @@
+#!/bin/bash
+screen_size=$(xdpyinfo | grep dimensions | cut -d ' ' -f 7)
+width=$(echo $screen_size| sed 's/x.*$//')
+height=$(echo $screen_size| sed 's/^.*x//')
+height=$(($height - 19))
+rdesktop -g ${width}x${height} -K $@

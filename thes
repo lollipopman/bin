@@ -1,0 +1,10 @@
+#!/bin/bash
+usage(){
+   echo "$(basename $0) <word>"
+}
+
+if [ $# -eq 0 ]; then
+   usage
+   exit 1
+fi
+/usr/bin/dict -d moby-thesaurus $1

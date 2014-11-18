@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while true; do
+   echo -e 'REST!        REST!' | osd_cat -f "-bitstream-*-*-r-*-*-*-1600-*-*-*-*-*-*" \
+      --pos=middle --align=CENTER --offset=-400 --delay=20 --color=red
+   sleep 1h
+done

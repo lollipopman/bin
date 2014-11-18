@@ -1,0 +1,2 @@
+#!/bin/bash
+xrandr --output eDP1 --mode 1024x768 --output DP1 --mode 1024x768 --same-as eDP1

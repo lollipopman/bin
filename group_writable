@@ -1,0 +1,8 @@
+#!/bin/bash
+user=$1
+group=$2
+
+find . -type f -perm -u+x -exec chmod 775 {} \;
+find . -type d -exec chmod 2775 {} \;
+find . -type f ! -perm -u+x -exec chmod 664 {} \;
+find . -exec chown ${user}:${group} {} \;

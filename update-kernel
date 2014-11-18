@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+require 'rest_client'
+require 'rake'
+require 'versionomy'
+require 'highline/import'
+
+kernel_banner = RestClient.get 'https://www.kernel.org/finger_banner'
+stable_kernel_version=kernel_banner.match(/^The latest stable .* version.*:\s*([0-9.]+)\s*$/)[1]
+proc_version = File.read('/proc/version')
+current_kernel_version = proc_version.match(/Linux version ([0-9.]+)/)[1]
+
+current_kernel_version = Versionomy.parse(current_kernel_version)
+stable_kernel_version = Versionomy.parse(stable_kernel_version)
+
+if stable_kernel_version < current_kernel_version
+  say("No new stable kernel :(")
+  exit 0
+end
+
+say("Current kernel version #{current_kernel_version}")
+say("Stable kernel version #{stable_kernel_version}")
+unless agree("Do you want to build the new stable kernel? ")
+  exit 0
+end
+
+puts "### Building Kernel #{stable_kernel_version}"
+linux_src_dir = "#{ENV['HOME']}/dvl/ext/linux"
+build_dir = "/usr/src"
+FileUtils.cd(linux_src_dir)
+sh "git checkout master"
+sh "git pull"
+sh "git checkout v#{stable_kernel_version}"
+FileUtils.cd(build_dir)
+sh 'rm linux'
+sh "ln -s #{linux_src_dir} linux"
+FileUtils.cd('/usr/src/linux')
+if agree("Do you want to make oldconfig?")
+  sh 'cp /boot/config-$(uname -r) .config'
+  sh 'make oldconfig'
+end
+sh 'make-kpkg clean'
+sh 'nice -n +19 fakeroot make-kpkg -j 4 --revision 1 --append_to_version "-$(date +%G%m%d)" --initrd kernel_image kernel_headers'
+sh 'git checkout master'

@@ -1,0 +1,4 @@
+#!/bin/bash
+undock
+bar &
+exec sudo pm-suspend

@@ -1,0 +1,2 @@
+#!/bin/bash
+exec ssvnc -cmd vnc+ssh://$1 -quality 2 -compresslevel 9

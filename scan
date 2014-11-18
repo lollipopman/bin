@@ -1,0 +1,1 @@
+scanimage -d 'hpaio:/net/HP_LaserJet_M2727nf_MFP?ip=192.168.199.251' --format=tiff >image.tiff

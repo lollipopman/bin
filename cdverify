@@ -1,0 +1,21 @@
+#!/bin/bash
+
+iso_image_md5sum=$(dd if=$2 bs=4194304 conv=notrunc,noerror,sync 2>/tmp/iso_image.$$ | md5sum| awk '{print $1}')
+block_count=$(grep 'records in' /tmp/iso_image.$$ |cut -f1 -d+)
+#rm /tmp/cdverify.$$
+cdrom_md5sum=$(dd if=$1 bs=4194304 count=$block_count conv=notrunc,noerror,sync 2>/tmp/cdrom_image.$$ | md5sum| awk '{print $1}')
+
+echo "$block_count block count"
+echo "$cdrom_md5sum cdrom md5sum"
+echo "$iso_image_md5sum iso md5sum"
+
+if [ $cdrom_md5sum == $iso_image_md5sum ]
+then
+   echo
+   echo "   sums matched"
+   echo
+else
+   echo
+   echo "   sums do not match!!"
+   echo
+fi

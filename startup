@@ -1,0 +1,8 @@
+#!/bin/bash
+#pkill -f pulseaudio
+#pkill -f yeah
+#pkill -f remind-alert
+#pulse &
+yeah &
+blink &
+#remind-alert &

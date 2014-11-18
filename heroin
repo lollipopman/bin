@@ -1,0 +1,6 @@
+sudo apt-get autoremove --purge
+sudo apt-get update
+sudo apt-get upgrade
+echo
+echo "  Heroin is so Passe!"
+echo
