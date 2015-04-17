@@ -1,4 +1,2 @@
 #!/bin/bash
-#export VNC_VIA_CMD='ssh -o ControlMaster=no -f -p 51322 -N -L %L:%H:%R %G'
-#echo admin|xtightvncviewer -quality 1 -compresslevel 1 -autopass -via support01.chi 172.23.48.250
-echo admin|xtightvncviewer -quality 1 -compresslevel 1 -autopass 192.168.224.2
+echo $PASSWORD|xtightvncviewer -quality 1 -compresslevel 1 -autopass -via $1 $2
