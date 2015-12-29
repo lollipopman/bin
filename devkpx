@@ -1,3 +1,4 @@
 #!/bin/bash
-cp "/home/jhathaway/Dropbox/devs shared/devs.kdb" "/home/jhathaway/btdocs/kdb/devs.kdb"
+cp "${HOME}/dropboxes/work/Dropbox (BPS)/devs shared/devs.kdb" \
+    "${HOME}/btdocs/kdb/devs.kdb"
 exec keepassx "/home/jhathaway/btdocs/kdb/devs.kdb"

@@ -1,2 +1,2 @@
 #!/bin/bash
-exec keepassx "/home/jhathaway/Dropbox/devs shared/devs.kdb"
+exec keepassx "${HOME}/dropboxes/work/Dropbox (BPS)/devs shared/devs.kdb"
