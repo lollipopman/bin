@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ -z "$1" ] || [ -z "$2" ];then
+    printf "usage: $0 <from_date> <to_date>\n"
+    printf "e.g. $0 2016-01-01 2016-01-31\n"
+    exit 0
+fi
+
+TRANSACTIONS=$(mktemp /tmp/tmp.mint.XXXXXX)
+mintapi --transactions jesse@mbuki-mvuki.org > ${TRANSACTIONS}
+
+FROM_DATE=$(($(date --date="$1" +%s) * 1000))
+TO_DATE=$(($(date --date="$2" +%s) * 1000))
+TOTAL=$(cat ${TRANSACTIONS} |jq 'map(select(.description == "Ventra" and .date > '${FROM_DATE}' and .date < '${TO_DATE}').amount)|add')
+
+function tx_to_markdown {
+    printf "## Transactions\n\n"
+    printf "Date|Description|Amount\n"
+    printf -- "---|---|---\n"
+    cat ${TRANSACTIONS}|jq -r \
+        'map(select(.description == "Ventra" and .date > '${FROM_DATE}' and .date < '${TO_DATE}')) | map(.date /= 1000)|map(.date = ((.date)| tostring |strptime("%s")|strftime("%F"))) | map([.date, .description, .amount ])|.[]|@tsv' | tr '\t' '|' | sort -n
+    printf "\n## Total: \$${TOTAL}\n"
+}
+
+tx_to_markdown | pandoc -f markdown_github -o ~/${0}-${1}-${2}.pdf
+printf "PDF Created: ~/${0}-${1}-${2}.pdf\n"
