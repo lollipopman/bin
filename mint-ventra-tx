@@ -1,8 +1,10 @@
 #!/bin/bash
 
+PROGRAM=$(basename $0)
+
 if [ -z "$1" ] || [ -z "$2" ];then
-    printf "usage: $0 <from_date> <to_date>\n"
-    printf "e.g. $0 2016-01-01 2016-01-31\n"
+    printf "usage: $PROGRAM <from_date> <to_date>\n"
+    printf "e.g. $PROGRAM 2016-01-01 2016-01-31\n"
     exit 0
 fi
 
@@ -22,5 +24,5 @@ function tx_to_markdown {
     printf "\n## Total: \$${TOTAL}\n"
 }
 
-tx_to_markdown | pandoc -f markdown_github -o ~/${0}-${1}-${2}.pdf
-printf "PDF Created: ~/${0}-${1}-${2}.pdf\n"
+tx_to_markdown | pandoc -f markdown_github -o ~/${PROGRAM}-${1}-${2}.pdf
+printf "PDF Created: ~/${PROGRAM}-${1}-${2}.pdf\n"
