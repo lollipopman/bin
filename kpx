@@ -1,2 +1,2 @@
 #!/bin/bash
-exec keepassx $HOME/btdocs/kdb/braintree.kdb
+exec keepassx ${HOME}/dropboxes/personal/Dropbox/secrets/braintree.kdb
