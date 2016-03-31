@@ -1,0 +1,2 @@
+#!/bin/bash
+vlc ~/audio/22-Heater-60min.mp3 >/dev/null 2>&1 &
