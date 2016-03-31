@@ -1,9 +1,8 @@
 #!/bin/bash
 pkill -f yeahconsole
-screen_size=$(xdpyinfo | grep dimensions | cut -d ' ' -f 7)
-width=$(echo $screen_size| sed 's/x.*$//')
-height=$(echo $screen_size| sed 's/^.*x//')
-xoffset=$((($width-1000)/2))
-xrdb -override ~/urt/etc/yeahconsole.xr
-echo "yeahconsole*xOffset: $xoffset" | xrdb -override
-nohup yeahconsole > /dev/null 2>&1 &
+#screen_size=$(xdpyinfo | grep dimensions | cut -d ' ' -f 7)
+#width=$(echo $screen_size| sed 's/x.*$//')
+#height=$(echo $screen_size| sed 's/^.*x//')
+#xoffset=$((($width-1000)/2))
+#echo "yeahconsole*xOffset: $xoffset" | xrdb -override
+exec nohup yeahconsole > /dev/null 2>&1 &

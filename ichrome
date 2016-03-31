@@ -1,2 +1,2 @@
 #!/bin/bash
-exec $(which google-chrome-stable) --incognito $@
+exec google-chrome-stable --incognito $@

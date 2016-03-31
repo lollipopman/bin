@@ -1,2 +1,2 @@
 #!/bin/bash
-exec $(which google-chrome-stable) $@
+exec google-chrome-stable $@
