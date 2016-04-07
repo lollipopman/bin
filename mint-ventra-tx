@@ -24,5 +24,8 @@ function tx_to_markdown {
     printf "\n## Total: \$${TOTAL}\n"
 }
 
-tx_to_markdown | pandoc -f markdown_github -o ~/${PROGRAM}-${1}-${2}.pdf
-printf "PDF Created: ~/${PROGRAM}-${1}-${2}.pdf\n"
+if tx_to_markdown | pandoc -f markdown_github -o ~/tmp/${PROGRAM}-${1}-${2}.pdf;then
+  printf "PDF Created: ~/${PROGRAM}-${1}-${2}.pdf\n"
+else
+  printf "Unable to create PDF: ~/tmp/${PROGRAM}-${1}-${2}.pdf\n"
+fi
