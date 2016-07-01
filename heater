@@ -1,2 +1,3 @@
 #!/bin/bash
-vlc ~/audio/22-Heater-60min.mp3 >/dev/null 2>&1 &
+pkill -x vlc
+exec nohup vlc --qt-start-minimized --loop ~/audio/22-Heater-60min.mp3 >/dev/null 2>&1 &

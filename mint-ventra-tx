@@ -9,7 +9,10 @@ if [ -z "$1" ] || [ -z "$2" ];then
 fi
 
 TRANSACTIONS=$(mktemp /tmp/tmp.mint.XXXXXX)
-mintapi --transactions jesse@mbuki-mvuki.org > ${TRANSACTIONS}
+if ! mintapi --transactions jesse@mbuki-mvuki.org > ${TRANSACTIONS}; then
+  printf "\n\nUnable to pull down transactions from mint!\n\n"
+  exit 1
+fi
 
 FROM_DATE=$(($(date --date="$1" +%s) * 1000))
 TO_DATE=$(($(date --date="$2" +%s) * 1000))
@@ -25,7 +28,7 @@ function tx_to_markdown {
 }
 
 if tx_to_markdown | pandoc -f markdown_github -o ~/tmp/${PROGRAM}-${1}-${2}.pdf;then
-  printf "PDF Created: ~/${PROGRAM}-${1}-${2}.pdf\n"
+  printf "PDF Created: ~/tmp/${PROGRAM}-${1}-${2}.pdf\n"
 else
   printf "Unable to create PDF: ~/tmp/${PROGRAM}-${1}-${2}.pdf\n"
 fi

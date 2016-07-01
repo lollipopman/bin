@@ -1,7 +1,0 @@
-#!/bin/bash
-diary_file="${HOME}/pdoc/thoughts/$(date +%Y%m%d).mdwn"
-if [ ! -e "$diary_file" ]; then
-   today=$(date "+%A %B %d, %Y")
-   echo "# ${today}" > $diary_file
-fi
-vi $diary_file

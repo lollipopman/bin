@@ -1,3 +1,5 @@
 #!/bin/bash
-cp "${HOME}/dropboxes/work/Dropbox (BPS)/devs shared/devs-prod.kdb" "${HOME}/btdocs/kdb/devs-prod.kdb"
-exec keepassx "${HOME}/btdocs/kdb/devs-prod.kdb"
+tmp_kpx=$(mktemp)
+cp "${HOME}/dropboxes/work/Dropbox (BPS)/devs shared/devs-prod.kdb" $tmp_kpx
+exec keepassx $tmp_kpx
+rm $tmp_kpx
