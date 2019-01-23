@@ -1,34 +1,50 @@
 #!/bin/bash
+# vim: set noexpandtab:
 
-PROGRAM=$(basename $0)
+PROGRAM=$(basename "${0}")
 
-if [ -z "$1" ] || [ -z "$2" ];then
-    printf "usage: $PROGRAM <from_date> <to_date>\n"
-    printf "e.g. $PROGRAM 2016-01-01 2016-01-31\n"
-    exit 0
+if [[ -z "$1" ]] || [[ -z "$2" ]]; then
+	printf "usage: %s <from_date> <to_date>\n" "${PROGRAM}"
+	printf "e.g. %s 2016-01-01 2016-01-31\n" "${PROGRAM}"
+	exit 0
 fi
 
 TRANSACTIONS=$(mktemp /tmp/tmp.mint.XXXXXX)
-if ! mintapi --transactions jesse@mbuki-mvuki.org > ${TRANSACTIONS}; then
-  printf "\n\nUnable to pull down transactions from mint!\n\n"
-  exit 1
+if ! mintapi --transactions jesse@mbuki-mvuki.org >"${TRANSACTIONS}"; then
+	printf "\n\nUnable to pull down transactions from mint!\n\n"
+	exit 1
 fi
 
 FROM_DATE=$(($(date --date="$1" +%s) * 1000))
 TO_DATE=$(($(date --date="$2" +%s) * 1000))
-TOTAL=$(cat ${TRANSACTIONS} |jq 'map(select(.description == "Ventra" and .date > '${FROM_DATE}' and .date < '${TO_DATE}').amount)|add')
+TOTAL=$(jq '
+    map(
+      select(.description == "Ventra" and .date > '${FROM_DATE}' and .date < '${TO_DATE}').amount)
+    ) | add' "${TRANSACTIONS}")
 
-function tx_to_markdown {
-    printf "## Transactions\n\n"
-    printf "Date|Description|Amount\n"
-    printf -- "---|---|---\n"
-    cat ${TRANSACTIONS}|jq -r \
-        'map(select(.description == "Ventra" and .date > '${FROM_DATE}' and .date < '${TO_DATE}')) | map(.date /= 1000)|map(.date = ((.date)| tostring |strptime("%s")|strftime("%F"))) | map([.date, .description, .amount ])|.[]|@tsv' | tr '\t' '|' | sort -n
-    printf "\n## Total: \$${TOTAL}\n"
+function tx_to_markdown() {
+	printf "## Transactions\n\n"
+	printf "Date|Description|Amount\n"
+	printf -- "---|---|---\n"
+	jq -r '
+      map(
+        select(.description == "Ventra" and .date > '${FROM_DATE}' and .date < '${TO_DATE}')
+      ) | map(
+            .date /= 1000
+          ) | map(.date = ((.date) |
+            tostring |strptime("%s") |
+            strftime("%F"))) |
+            map([.date, .description, .amount ]) |
+            .[]|@tsv' "${TRANSACTIONS}" |
+		tr '\t' '|' |
+		sort -n
+	printf "\n## Total: \$%s\n" "${TOTAL}"
 }
 
-if tx_to_markdown | pandoc -f markdown_github -o ~/tmp/${PROGRAM}-${1}-${2}.pdf;then
-  printf "PDF Created: ~/tmp/${PROGRAM}-${1}-${2}.pdf\n"
+output_pdf="${HOME}/tmp/${PROGRAM}-${1}-${2}.pdf"
+if tx_to_markdown | pandoc -f gfm -o "${output_pdf}"; then
+	printf "PDF Created: %s\n" "${output_pdf}"
 else
-  printf "Unable to create PDF: ~/tmp/${PROGRAM}-${1}-${2}.pdf\n"
+	printf "Unable to create PDF: %s\n" "${output_pdf}"
+	exit 1
 fi

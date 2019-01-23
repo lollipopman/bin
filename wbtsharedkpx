@@ -1,2 +1,2 @@
 #!/bin/bash
-exec keepassx "/home/jhathaway/Dropbox/bt shared/_KeePass/passwords.kdb"
+exec keepassx "/home/jhathaway/Dropbox/bt shared/_KeePass/passwords.kdbx"

@@ -1,6 +1,11 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
 sudo apt-get autoremove --purge
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade --with-new-pkgs
 echo
 echo "  Heroin is so Passe!"
 echo

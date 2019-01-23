@@ -1,0 +1,9 @@
+#!/bin/bash
+# Delete all containers
+for container in $(docker ps -a -q); do
+	docker rm "${container}"
+done
+# Delete all images
+for image in $(docker images -q); do
+	docker rmi -f "${image}"
+done

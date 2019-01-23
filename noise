@@ -1,0 +1,3 @@
+#!/bin/bash
+pkill -x vlc
+exec nohup vlc --qt-start-minimized --loop ~/audio/03-White-Noise-60min.mp3 >/dev/null 2>&1 &

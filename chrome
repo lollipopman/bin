@@ -1,2 +1,2 @@
 #!/bin/bash
-exec google-chrome-stable $@
+exec google-chrome-stable  --force-device-scale-factor=1.2 $@

@@ -1,6 +1,5 @@
 #!/bin/bash
-xrandr --output DP1 --auto --output eDP1 --off
-xrandr --output DP1 --off --output eDP1 --auto
+xrandr --output HDMI1 --off
+xrandr --output HDMI2 --off
 xrandr --output DP1 --auto --output eDP1 --off
 xrandr --dpi 96
-yeah &
