@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -o errexit
+
+function draw_sixel() {
+  local dot
+  dot="${1}"
+  png=$(mktemp --tmpdir XXXXXXXX.png)
+  dot "${dot}" -Tpng -o "${png}"
+  img2sixel -h 150% -w 150% "${png}"
+  rm "${png}"
+}
+
+dot="${1}"
+draw_sixel "${dot}"
